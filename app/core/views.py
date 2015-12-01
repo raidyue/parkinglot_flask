@@ -1,6 +1,7 @@
 # encoding=utf-8
-from flask import Blueprint, render_template, request, session, url_for, redirect, flash, g
-from models import User, db
+from flask import Blueprint, render_template, request, session, url_for, redirect, flash
+
+from app.models import User, db
 
 main_bp = Blueprint('main', __name__)
 
@@ -28,7 +29,6 @@ def login():
         user = db.session.query(User).filter_by(username=username).first()
         if user:
             session['username'] = user.username
-            flash(u'用户存在')
             return redirect(url_for('.index'))
         else:
             flash(u'该用户不存在')

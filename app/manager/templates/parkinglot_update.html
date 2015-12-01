@@ -1,0 +1,81 @@
+{% extends 'manager/manager_base.html' %}
+{% block nav %}
+    <li>
+        <a href="{% url 'manager_index' %}">主页</a>
+    </li>
+    <li>
+        <a href="{% url 'manager_order' 4 1 %}">订单</a>
+    </li>
+    <li class="active">
+        <a href="{% url 'manager_parkinglot' %}">停车场管理</a>
+    </li>
+{% endblock %}
+{% block right-bar %}
+    {% if manager %}
+        <li>
+            <a href="#">{{ manager.name }}</a>
+        </li>
+        <li>
+            <a href="{% url 'manager_logout' %}">登出</a>
+        </li>
+    {% else %}
+        <li>
+            <a href="{% url 'manager_login' %}">登录</a>
+        </li>
+    {% endif %}
+{% endblock %}
+{% block content %}
+    <ul class="nav nav-tabs nav-justified">
+        <li role="presentation" class="active">
+            <a href="{% url 'manager_parkinglot' %}">停车场信息修改</a>
+        </li>
+        <li role="presentation">
+            <a href="{% url 'manager_lot' 1 %}">车位管理</a>
+        </li>
+    </ul>
+
+    <div class="container">
+        {% if manager %}
+
+            <form class="form-horizontal" method="post" action="{% url 'parkinglot_update' %}">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="updatePLName" class="col-sm-2 control-label">停车场名称</label>
+
+                    <div class="col-sm-10">
+                        <input id="updatePLName" class="form-control" value="{{ manager.parkinglot.name }}"
+                               name="name"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="updatePLCity" class="col-sm-2 control-label">所在城市</label>
+
+                    <div class="col-sm-10">
+                        <input id="updatePLCity" class="form-control" value="{{ manager.parkinglot.city }}"
+                               name="city"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="updatePLAddress" class="col-sm-2 control-label">地址</label>
+
+                    <div class="col-sm-10">
+                        <input id="updatePLAddress" class="form-control"
+                               value="{{ manager.parkinglot.address }}" name="address">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="updatePLPrice" class="col-sm-2 control-label">价格（/h）</label>
+
+                    <div class="col-sm-10">
+                        <input id="updatePLPrice" class="form-control" value="{{ manager.parkinglot.charge }}"
+                               name="charge"/>
+                    </div>
+                </div>
+                <div class="container text-center">
+                    <button type="submit" class="btn btn-primary btn-sm">确认修改</button>
+                    <a type="button" class="btn btn-primary btn-sm" href="{% url 'manager_parkinglot' %}">取消修改</a>
+                </div>
+            </form>
+        {% endif %}
+    </div>
+{% endblock %}

@@ -1,10 +1,9 @@
 __author__ = 'raidyue'
 
-
 from flask.ext.script import Manager
-from app import create_app
-from app.core.models import db
 
+from app import create_app
+from app.models import db
 
 app = create_app()
 

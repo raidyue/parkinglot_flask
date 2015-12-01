@@ -1,15 +1,17 @@
 from flask import Flask
-from flask.ext.login import LoginManager
-from app.core.models import db
+
+from app.models import db
 from app.core.views import main_bp
+from app.manager.views import manager_bp
 import config
 
 
 def create_app():
     app = Flask(__name__)
     app.config.from_object(config.Config)
-    app.register_blueprint(main_bp)
     register_database(app)
+    app.register_blueprint(main_bp)
+    app.register_blueprint(manager_bp)
     return app
 
 
