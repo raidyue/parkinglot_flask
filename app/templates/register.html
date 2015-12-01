@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block nav %}
+<li class="active"><a href="{{ url_for('main.index') }}">主页</a></li>
+<li><a href="#">我的</a></li>
+<li><a href="#contact">Contact</a></li>
+{% endblock %}
+{% block right_bar %}
+<li><a href="{{ url_for('main.logout') }}">登录</a></li>
+<li><a href="{{ url_for('main.register') }}">注册</a></li>
+{% endblock %}
+{% block content %}
+
+<form class="form-signin" action="{{ url_for('main.register') }}" method="post">
+    <h2 class="form-signin-heading">注册</h2>
+    <label for="inputEmail" class="sr-only">邮箱地址</label>
+    <input type="email" id="inputEmail" class="form-control" placeholder="邮箱地址" name="email" required autofocus>
+    <label for="inputUsername" class="sr-only">用户名</label>
+    <input type="text" id="inputUsername" class="form-control" placeholder="用户名" name="username" required
+           autofocus>
+    <label for="inputPassword" class="sr-only">密码</label>
+    <input type="password" id="inputPassword" class="form-control" placeholder="密码" name="password" required>
+    <input type="password" id="repeatPassword" class="form-control" placeholder="重复密码" name="repeatPassword"
+           required>
+    {% with messages=get_flashed_messages() %}
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-danger" role="alert">{{ message }}</div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+    <button class="btn btn-lg btn-primary btn-block" type="submit">确认</button>
+</form>
+
+<!-- /container -->
+{% endblock %}
