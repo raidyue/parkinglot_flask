@@ -50,6 +50,7 @@ class Parkinglot(db.Model):
     lots = db.relationship('Lot', backref='parkinglot')
 
 
+
 class Lot(db.Model):
     __tablename__ = 'lot'
 
@@ -72,3 +73,15 @@ class Order(db.Model):
     p_id = db.Column(db.BIGINT, db.ForeignKey('parkinglot.id'))
     lot_id = db.Column(db.BIGINT, db.ForeignKey('lot.id'))
     user_id = db.Column(db.BIGINT, db.ForeignKey('user.id'))
+
+
+class Manager(db.Model):
+    __tablename__ = 'manager'
+    id = db.Column(db.BIGINT, primary_key=True, autoincrement=True)
+    name = db.Column(db.String(128))
+    password = db.Column(db.String(128))
+
+    p_id = db.Column(db.BIGINT, db.ForeignKey('parkinglot.id'))
+
+    def __unicode__(self):
+        return self.parkinglot.name + '-' + self.name

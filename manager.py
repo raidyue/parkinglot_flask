@@ -12,7 +12,12 @@ manager = Manager(app)
 
 @manager.command
 def create_db():
+    db.drop_all()
     db.create_all()
+
+@manager.command
+def reflect_db():
+    db.reflect()
 
 
 

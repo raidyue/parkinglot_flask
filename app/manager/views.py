@@ -17,6 +17,8 @@ def index():
 @manager_bp.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        pass
+        name = request.form['name']
+        password = request.form['password']
+        return render_template('')
     elif request.method == 'GET':
         return render_template('manager_login.html')
