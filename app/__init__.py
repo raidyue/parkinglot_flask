@@ -3,7 +3,8 @@ from flask import Flask
 from app.models import db
 from app.core.views import main_bp
 from app.manager.views import manager_bp
-from app.admin import admin
+from app.admin.views import admin
+import flask_wtf
 import config
 
 
@@ -13,6 +14,7 @@ def create_app():
     register_database(app)
     register_blueprint(app)
     register_admin(app)
+    flask_wtf.CsrfProtect(app)
     return app
 
 
